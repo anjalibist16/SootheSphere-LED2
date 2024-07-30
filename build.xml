@@ -7,8 +7,13 @@
 <!-- the Compile on Save feature is turned off for the project. -->
 <!-- You can turn off the Compile on Save (or Deploy on Save) setting -->
 <!-- in the project's Project Properties dialog box.-->
+<<<<<<< HEAD
 <project name="SootheSphere" default="default" basedir=".">
     <description>Builds, tests, and runs the project SootheSphere.</description>
+=======
+<project name="Education" default="default" basedir=".">
+    <description>Builds, tests, and runs the project Education.</description>
+>>>>>>> d10e957c05edc8b74270a1b832e9951f1a73d705
     <import file="nbproject/build-impl.xml"/>
     <!--
 
@@ -58,7 +63,11 @@
 
     An example of overriding the target for project execution could look like this:
 
+<<<<<<< HEAD
         <target name="run" depends="SootheSphere-impl.jar">
+=======
+        <target name="run" depends="Education-impl.jar">
+>>>>>>> d10e957c05edc8b74270a1b832e9951f1a73d705
             <exec dir="bin" executable="launcher.exe">
                 <arg file="${dist.jar}"/>
             </exec>
