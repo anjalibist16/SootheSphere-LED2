@@ -3,7 +3,15 @@
     <type>org.netbeans.modules.java.j2seproject</type>
     <configuration>
         <data xmlns="http://www.netbeans.org/ns/j2se-project/3">
+<<<<<<< HEAD
             <name>SootheSphere</name>
+=======
+<<<<<<< HEAD
+            <name>SootheSphere</name>
+=======
+            <name>Education</name>
+>>>>>>> d10e957c05edc8b74270a1b832e9951f1a73d705
+>>>>>>> a6977d7777ba2087f86f534c8f298b24d67d2efb
             <source-roots>
                 <root id="src.dir"/>
             </source-roots>
