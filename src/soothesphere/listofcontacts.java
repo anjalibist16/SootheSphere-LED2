@@ -76,7 +76,7 @@ public class listofcontacts extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void nextButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nextButtonActionPerformed
-        // TODO add your handling code here:
+     
         this.dispose();
         yogaandexercises Ye = new yogaandexercises();
         Ye.setVisible(true);

@@ -3,8 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Main.java to edit this template
  */
 package soothesphere;
-import soothesphere.View.HomePage1;
-import soothesphere.View.LogInPage;
+import src.soothesphere.View.HomePage1;
 
 
 
