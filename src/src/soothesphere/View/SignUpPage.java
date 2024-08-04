@@ -4,6 +4,7 @@
  */
 package src.soothesphere.View;
 
+import View.LogInPage;
 import javax.swing.JOptionPane;
 
 /**
