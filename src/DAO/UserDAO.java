@@ -8,6 +8,11 @@ import database.MySqlConnection;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.Calendar;
+import java.util.Date;
+
+
 
 /**
  *
@@ -32,4 +37,55 @@ public class UserDAO {
             
       return false;      
     }
+     public boolean doesEx(String Name) {
+        boolean eee=false;
+        ResultSet re;
+        Connection conn = mysql.openConnection();
+        String query = "SELECT username FROM users WHERE username=?";
+        try (PreparedStatement stt = conn.prepareStatement(query)) {
+            stt.setString(1, (Name));
+            re = stt.executeQuery();
+            if(re.next()){
+                if(re.getString("username").equals(Name)){
+                    eee= true;
+                }
+                else {
+                eee=  false;
+                }
+            }
+        } catch (SQLException ex) {
+            System.err.println("SQL error: " + ex.getMessage());
+        } finally {
+
+            mysql.closeConnection(conn);
+        }
+        return eee;
+}
+
+public String createUser(User sign) {
+    if (doesEx(sign.getUsername())) {
+        System.out.println("Exists");
+        return "EXT";
+    } else {
+
+        Connection conn = mysql.openConnection();
+        Calendar calendar = Calendar.getInstance();
+        java.sql.Date currentDate = new java.sql.Date(calendar.getTimeInMillis());
+
+        String sql = "INSERT INTO User(username,Password,Email,RegistrationDate) Values(?,?,?,?);";
+        try (PreparedStatement p = conn.prepareStatement(sql)) {
+            p.setString(1, sign.getUsername());
+            p.setString(2, (sign.getPassword()));
+            p.setString(3, (sign.getEmail()));
+            p.setDate(4, currentDate); 
+            p.executeUpdate();
+        } catch (Exception f) {
+            System.out.println(f);
+            return "SQL";
+        } finally {
+            mysql.closeConnection(conn);
+        }
+    }
+    return "OK";
+}
 }

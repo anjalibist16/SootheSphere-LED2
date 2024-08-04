@@ -4,6 +4,8 @@
  */
 package src.soothesphere.View;
 
+import DAO.UserDAO;
+import Model.User;
 import View.LogInPage;
 import javax.swing.JOptionPane;
 
@@ -55,7 +57,7 @@ public class SignUpPage extends javax.swing.JFrame {
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 20, 144, -1));
 
         jLabel2.setFont(new java.awt.Font("Times New Roman", 0, 12)); // NOI18N
-        jLabel2.setText("Full name");
+        jLabel2.setText("Username");
         getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 76, 60, -1));
 
         jLabel3.setFont(new java.awt.Font("Times New Roman", 0, 12)); // NOI18N
@@ -116,6 +118,7 @@ public class SignUpPage extends javax.swing.JFrame {
 
     private void SignUp2ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SignUp2ButtonActionPerformed
         // TODO add your handling code here:
+        
         String Name = FullName.getText();
         String email = Email.getText();
         String password = Password1.getText();
@@ -134,9 +137,12 @@ public class SignUpPage extends javax.swing.JFrame {
         }else{
              int response = JOptionPane.showConfirmDialog(this, "Registration Done", "Success", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE);
              if (response == JOptionPane.OK_OPTION) {
-//                this.dispose();
-//                LogInPage Lp = new LogInPage();
-//                Lp.setVisible(true);
+                 User usr = new User();
+                 usr.setUsername(Name);
+                 usr.setEmail(email);
+                 usr.setPassword(password);
+                 UserDAO ud=new UserDAO();
+                 ud.createUser(usr);
              }
          }
     }//GEN-LAST:event_SignUp2ButtonActionPerformed

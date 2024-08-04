@@ -16,5 +16,4 @@ public class Login {
     UserDAO k =new UserDAO();
     return k.login(a);
     }
-    
 }
