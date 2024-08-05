@@ -7,9 +7,6 @@ import Controller.Login;
 import Model.User;
 
 import javax.swing.JOptionPane;
-import src.soothesphere.View.MainPage;
-import src.soothesphere.View.ResetPassword;
-import src.soothesphere.View.SignUpPage;
 
 /**
  *

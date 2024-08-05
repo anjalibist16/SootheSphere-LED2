@@ -37,16 +37,16 @@ public class UserDAO {
             
       return false;      
     }
-     public boolean doesEx(String Name) {
+     public boolean doesEx(String Email) {
         boolean eee=false;
         ResultSet re;
         Connection conn = mysql.openConnection();
-        String query = "SELECT username FROM users WHERE username=?";
+        String query = "SELECT Email FROM User WHERE Email=?";
         try (PreparedStatement stt = conn.prepareStatement(query)) {
-            stt.setString(1, (Name));
+            stt.setString(1, (Email));
             re = stt.executeQuery();
             if(re.next()){
-                if(re.getString("username").equals(Name)){
+                if(re.getString("Email").equals(Email)){
                     eee= true;
                 }
                 else {
@@ -63,7 +63,7 @@ public class UserDAO {
 }
 
 public String createUser(User sign) {
-    if (doesEx(sign.getUsername())) {
+    if (doesEx(sign.getEmail())) {
         System.out.println("Exists");
         return "EXT";
     } else {
@@ -88,4 +88,25 @@ public String createUser(User sign) {
     }
     return "OK";
 }
+public boolean changePassword(String Email, String Password){
+    Connection conn = mysql.openConnection();
+        Calendar calendar = Calendar.getInstance();
+        java.sql.Date currentDate = new java.sql.Date(calendar.getTimeInMillis());
+
+        String sql = "UPDATE User SET password = ? WHERE Email= ?";
+        try (PreparedStatement p = conn.prepareStatement(sql)) {
+            p.setString(2, (Email));
+            p.setString(1, (Password));
+            p.executeUpdate();
+            return true;
+        } catch (Exception f) {
+            System.out.println(f);
+            return false;
+        } finally {
+            mysql.closeConnection(conn);
+        }
+  
+}
+
+
 }
