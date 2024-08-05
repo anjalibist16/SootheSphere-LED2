@@ -2,9 +2,11 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package soothesphere;
-
+package View;
+import Model.Feedback;
 import javax.swing.JOptionPane;
+import DAO.UserDAO;
+import soothesphere.Aboutus;
 
 /**
  *
@@ -107,12 +109,11 @@ public class feedback extends javax.swing.JFrame {
 
     private void SubmitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SubmitActionPerformed
         // TODO add your handling code here:
-        this.dispose();
-        Aboutus As = new Aboutus();
-        As.setVisible(true);
-        String Name = Nametextfield.getText();
-        String Email = Emailtextfield.getText();
-        String Message = Messagetextfield.getText();
+        
+
+        String Name = Nametextfield.getText().toString();
+        String Email = Emailtextfield.getText().toString();
+        String Message = Messagetextfield.getText().toString();
         
         if(Name.equals("")){
             JOptionPane.showMessageDialog(this, "Name is empty");
@@ -121,13 +122,20 @@ public class feedback extends javax.swing.JFrame {
         }else if (Message.equals("")){
             JOptionPane.showMessageDialog(this,"Message is empty");
         }else {
-            
-            int response = JOptionPane.showConfirmDialog(this, "Successfully submitted", "Success", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE);
+            Feedback f=new Feedback(Name,Email,Message);
+            UserDAO udd=new UserDAO();
+            if(udd.insertFeedback(f)){
+                 int response = JOptionPane.showConfirmDialog(this, "Successfully submitted", "Success", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE);
             if (response == JOptionPane.OK_OPTION) {
                 this.dispose();
                 Aboutus as = new Aboutus();
                 as.setVisible(true);
              }
+            }
+            else{
+                JOptionPane.showMessageDialog(this, "Failed saving Feedback");
+            }
+           
         }
 
     }//GEN-LAST:event_SubmitActionPerformed

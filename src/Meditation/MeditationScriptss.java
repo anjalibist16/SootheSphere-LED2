@@ -168,6 +168,7 @@ private void shuffleAndPlay() {
 
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
         jSlider1 = new javax.swing.JSlider();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
@@ -180,7 +181,6 @@ private void shuffleAndPlay() {
         jButton9 = new javax.swing.JButton();
         jButton10 = new javax.swing.JButton();
         jButton12 = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -192,6 +192,9 @@ private void shuffleAndPlay() {
         jLabel3.setFont(new java.awt.Font("Playfair Display", 1, 18)); // NOI18N
         jLabel3.setText("Meditation");
         getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 20, -1, -1));
+
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Meditation/img/MeditationBackground.png"))); // NOI18N
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
         getContentPane().add(jSlider1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 220, -1, -1));
 
         jButton1.setText("Guided Imagery");
@@ -291,9 +294,6 @@ private void shuffleAndPlay() {
             }
         });
         getContentPane().add(jButton12, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 240, 50, 50));
-
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Meditation/img/MeditationBackground.png"))); // NOI18N
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents

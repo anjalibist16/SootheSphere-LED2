@@ -4,6 +4,7 @@
  */
 package soothesphere;
 
+import View.feedback;
 import java.net.URI;
 
 /**

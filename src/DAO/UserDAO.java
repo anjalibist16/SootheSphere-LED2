@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package DAO;
+import Model.Feedback;
 import Model.User;
 import database.MySqlConnection;
 import java.sql.Connection;
@@ -107,6 +108,24 @@ public boolean changePassword(String Email, String Password){
         }
   
 }
+public boolean insertFeedback(Feedback f) {
+        Connection conn = mysql.openConnection();
+        String insertQuery = "INSERT INTO Feedback (Name, Email, Feedback) VALUES (?, ?, ?)";
+        try (PreparedStatement preparedStatement = conn.prepareStatement(insertQuery)) {
+            preparedStatement.setString(1, f.Name);
+            preparedStatement.setString(2, f.Email);
+            preparedStatement.setString(3, f.Feedback);
+            int rowsAffected = preparedStatement.executeUpdate();
+            if (rowsAffected > 0) {
+                return true;
+            } 
+            
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+        return false;
+    }
 
 
 }
