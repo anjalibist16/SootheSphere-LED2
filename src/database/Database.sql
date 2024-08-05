@@ -19,3 +19,4 @@ CREATE TABLE User (
     Email varchar(255),
     RegistrationDate date
 );
+CREATE TABLE Feedback( Nmae varchar(255),Email varchar(255),Feedback text);
