@@ -3,7 +3,8 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Main.java to edit this template
  */
 package soothesphere;
-import src.soothesphere.View.HomePage1;
+//import View.HomePage1;
+import View.LogInPage;
 
 
 
@@ -18,7 +19,7 @@ public class SootheSphere {
      */
     public static void main(String[] args) {
         // TODO code application logic here
-        HomePage1 Hp = new HomePage1();
+        LogInPage Hp = new LogInPage();
         Hp.setVisible(true);
 //        LogInPage Lp = new LogInPage();
 //        Lp.setVisible(true);
