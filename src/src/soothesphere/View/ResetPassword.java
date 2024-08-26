@@ -4,8 +4,12 @@
  */
 package src.soothesphere.View;
 
-
+import database.DatabaseConnection;
 import javax.swing.JOptionPane;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 
 /**
  *
@@ -18,9 +22,50 @@ public class ResetPassword extends javax.swing.JFrame {
      */
     public ResetPassword() {
         initComponents();
-  
+
     }
-  
+
+    // Method to validate the password
+    private boolean isValidPassword(String password) {
+        // Check for at least one capital letter and one number
+        return password.matches("^(?=.*[A-Z])(?=.*\\d).+$");
+    }
+
+    // Method to check if the email exists and change the password
+    private boolean changePassword(String email, String newPassword) {
+        try (Connection conn = DatabaseConnection.getConnection()) {
+            // Check if the email exists
+            String query = "SELECT password FROM users WHERE email = ?";
+            PreparedStatement ps = conn.prepareStatement(query);
+            ps.setString(1, email);
+            ResultSet rs = ps.executeQuery();
+
+            if (rs.next()) {
+                // Email found, check if the new password is different from the current password
+                String currentPassword = rs.getString("password");
+                if (newPassword.equals(currentPassword)) {
+                    JOptionPane.showMessageDialog(null, "New password cannot be the same as the current password");
+                    return false;
+                }
+
+                // Update the password
+                String updateQuery = "UPDATE users SET password = ? WHERE email = ?";
+                PreparedStatement updatePs = conn.prepareStatement(updateQuery);
+                updatePs.setString(1, newPassword);
+                updatePs.setString(2, email);
+                updatePs.executeUpdate();
+
+                return true;
+            } else {
+                JOptionPane.showMessageDialog(null, "Email not found");
+                return false;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Database error");
+            return false;
+        }
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -38,6 +83,8 @@ public class ResetPassword extends javax.swing.JFrame {
         Password = new javax.swing.JPasswordField();
         Email = new javax.swing.JTextField();
         reset = new javax.swing.JButton();
+        jLabel6 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -80,6 +127,18 @@ public class ResetPassword extends javax.swing.JFrame {
         });
         getContentPane().add(reset, new org.netbeans.lib.awtextra.AbsoluteConstraints(237, 223, -1, -1));
 
+        jLabel6.setFont(new java.awt.Font("Segoe UI", 0, 20)); // NOI18N
+        jLabel6.setText("Reset Password");
+        getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 10, -1, -1));
+
+        jButton1.setText("Back");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+
         jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/src/SootheSphere (14).png"))); // NOI18N
         getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 400, 300));
 
@@ -90,36 +149,48 @@ public class ResetPassword extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_PasswordActionPerformed
 
+
     private void resetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_resetActionPerformed
         // TODO add your handling code here:
         String email = Email.getText();
         String password = Password.getText();
         String confirm = Confirm.getText();
 
-        if(email.equals("")){
+        if (email.equals("")) {
             JOptionPane.showMessageDialog(this, "email is empty");
-        }else if (password.equals("")){
+        } else if (password.equals("")) {
             JOptionPane.showMessageDialog(this, "password is empty");
-        }else if (confirm.equals("")){
-            JOptionPane.showMessageDialog(this, "confirm is empty");
-        }else if (!password.equals(confirm)){
+        } else if (confirm.equals("")) {
+            JOptionPane.showMessageDialog(this, "confirm password is empty");
+        } else if (!password.equals(confirm)) {
             JOptionPane.showMessageDialog(this, "Password mismatch");
-        }else{
-              int response = JOptionPane.showConfirmDialog(this, "Your password has been changed", "Success", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE);
-            // If the user clicks "OK", hide the current window and open the new page
-           if (response == JOptionPane.OK_OPTION) {
-             this.setVisible(false); // Hide the current window
-             LogInPage lp = new LogInPage();
-             lp.setVisible(true);
-           }
+        } else if (!isValidPassword(password)) {
+            JOptionPane.showMessageDialog(this, "Password must contain at least one capital letter and one number");
+        } else {
+            if (changePassword(email, password)) {
+                int response = JOptionPane.showConfirmDialog(this, "Your password has been changed", "Success", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE);
+                if (response == JOptionPane.OK_OPTION) {
+                    this.setVisible(false); // Hide the current window
+                    LogInPage lp = new LogInPage();
+                    lp.setVisible(true);
+                }
+            }
         }
-        
-        
+
+
     }//GEN-LAST:event_resetActionPerformed
 
     private void ConfirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ConfirmActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_ConfirmActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        LogInPage lp = new LogInPage();
+        lp.show();
+        
+        dispose();
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -160,10 +231,12 @@ public class ResetPassword extends javax.swing.JFrame {
     private javax.swing.JPasswordField Confirm;
     private javax.swing.JTextField Email;
     private javax.swing.JPasswordField Password;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JButton reset;
     // End of variables declaration//GEN-END:variables
 }

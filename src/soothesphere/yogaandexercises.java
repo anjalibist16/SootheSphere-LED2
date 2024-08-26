@@ -9,6 +9,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.net.URI;
 import soothesphere.secondyogaandexercises;
+import src.soothesphere.View.MainPage;
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
@@ -61,6 +62,7 @@ public class yogaandexercises extends javax.swing.JFrame {
         jButton4 = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
         jButton6 = new javax.swing.JButton();
+        BackButton = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
 
         jLabel14.setText("jLabel14");
@@ -80,7 +82,7 @@ public class yogaandexercises extends javax.swing.JFrame {
 
         jLabel1.setFont(new java.awt.Font("Times New Roman", 1, 20)); // NOI18N
         jLabel1.setText("Yoga and Exercises:");
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, 20));
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 10, -1, 20));
 
         jLabel4.setFont(new java.awt.Font("Times New Roman", 0, 10)); // NOI18N
         jLabel4.setText("1. Cat-Cow Pose:");
@@ -157,6 +159,14 @@ public class yogaandexercises extends javax.swing.JFrame {
         });
         getContentPane().add(jButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 70, -1, -1));
 
+        BackButton.setText("Back");
+        BackButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BackButtonActionPerformed(evt);
+            }
+        });
+        getContentPane().add(BackButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+
         jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/soothesphere/Pictures/yogaPhotodefault.png"))); // NOI18N
         jLabel5.setText("jLabel5");
         getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 400, -1));
@@ -213,7 +223,7 @@ public class yogaandexercises extends javax.swing.JFrame {
     } catch (Exception ex) {
         ex.printStackTrace();
 
-}        //private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {                                         
+}        //private void jButton1ActionPeformed(java.awt.event.ActionEvent evt) {                                         
         // TODO add your handling code here:
         try {
             URI uri = new URI("  https://youtu.be/kqnua4rHVVA?si=_WvhsAoflSc9_qVD");
@@ -240,6 +250,15 @@ public class yogaandexercises extends javax.swing.JFrame {
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void BackButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BackButtonActionPerformed
+        // TODO add your handling code here:
+                // TODO add your handling code here:
+        MainPage main = new MainPage();
+        main.show();
+        
+        dispose();
+    }//GEN-LAST:event_BackButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -277,6 +296,7 @@ public class yogaandexercises extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton BackButton;
     private javax.swing.JButton Next;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
